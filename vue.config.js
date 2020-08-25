@@ -20,6 +20,7 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
+
   /**
    * You will need to set publicPath if you plan to deploy your site under a sub path,
    * for example GitHub Pages. If you plan to deploy your site to https://foo.github.io/bar/,
@@ -33,14 +34,30 @@ module.exports = {
   // assetsDir: '/',
   lintOnSave: false, // process.env.NODE_ENV === 'development',
   productionSourceMap: false,
+  // devServer: {
+  //   port: port,
+  //   open: false,
+  //   overlay: {
+  //     warnings: false,
+  //     errors: true
+  //   }
+  // },
+
   devServer: {
-    port: port,
-    open: false,
-    overlay: {
-      warnings: false,
-      errors: true
+    port: 9527,
+    proxy: {
+      '/api': {
+        target:'http://192.168.1.103:8000',
+        ws: true,
+        changeOrigin: true
+      },
+      '/upload':{
+        target:'http://192.168.1.103:8000',
+      }
     }
   },
+
+
   configureWebpack: {
     plugins: [
       new CompressionPlugin({
