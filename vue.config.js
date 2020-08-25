@@ -46,18 +46,22 @@ module.exports = {
   devServer: {
     port: 9527,
     proxy: {
-      '/api': {
-        target:'http://192.168.1.103:8000',
+      '/login':{
+        target:'http://127.0.0.1:8080',
         ws: true,
         changeOrigin: true
       },
+      '/api': {
+        target:'http://127.0.0.1:8080',
+        ws: true,
+        changeOrigin: true
+      },
+
       '/upload':{
-        target:'http://192.168.1.103:8000',
+        target:'http://127.0.0.1:8080',
       }
     }
   },
-
-
   configureWebpack: {
     plugins: [
       new CompressionPlugin({
